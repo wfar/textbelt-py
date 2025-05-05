@@ -1,0 +1,26 @@
+name: Setup python, poetry, and install dependencies
+
+runs:
+  using: "composite"
+
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v4
+
+  - name: Install python
+    uses: actions/setup-python@v5
+    with:
+      python-version: "3.10"
+
+  - name: Install and setup poetry
+    shell: bash
+    run: |
+      pip install poetry
+      python -m poetry config virtualenvs.create true --local
+      python -m poetry config virtualenvs.in-project true --local
+      python -m poetry --version
+
+  - name: Install dependencies
+    shell: bash
+    run: |
+      make install

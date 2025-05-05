@@ -1,0 +1,6 @@
+poetry.lock
+.mypy*
+.pytest*
+.ruff*
+**/__pycache__/
+.coverage*
