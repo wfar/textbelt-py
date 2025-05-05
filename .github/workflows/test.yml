@@ -22,3 +22,8 @@ jobs:
           printf "TEXTBELT_API_KEY=${{ secrets.TEXTBELT_API_KEY }}\nTEST_PHONE_NUMBER=${{ secrets.TEST_PHONE_NUMBER }}" > tests/.env.test
           make test
           rm tests/.env.test
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}

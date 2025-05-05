@@ -16,6 +16,8 @@ install:
 test:
 	poetry run pytest -v \
 		--cov-report term-missing \
+		--cov-branch \
+		--cov-report=xml \
 		--cov=src/textbelt_py \
 		--cov-fail-under=100
 
