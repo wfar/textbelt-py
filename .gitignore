@@ -5,3 +5,4 @@ poetry.lock
 **/__pycache__/
 .coverage*
 coverage.xml
+tests/.env.test
