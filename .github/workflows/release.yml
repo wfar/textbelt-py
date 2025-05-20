@@ -1,0 +1,85 @@
+name: Publish and release package
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run setup
+      uses: ./.github/actions/setup
+
+    - name: Run linters
+      run: |
+        poetry run ruff check
+        poetry run mypy . --install-types --non-interactive
+
+    - name: Run tests
+      run: |
+          printf "TEXTBELT_API_KEY=${{ secrets.TEXTBELT_API_KEY }}\nTEST_PHONE_NUMBER=${{ secrets.TEST_PHONE_NUMBER }}" > tests/.env.test
+          make test
+          rm tests/.env.test
+
+  publish-to-pypi:
+    needs: quality-check
+
+    runs-on: ubuntu-latest
+    environment:
+      name: PyPI
+      url: https://pypi.org/project/textbelt-py
+    permissions:
+      id-token: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install poetry and build package
+      run: |
+        pip install poetry
+        python -m poetry --version
+        python -m poetry build
+
+    - name: Publish package to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+
+  release-to-github:
+    needs: publish-to-pypi
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install poetry and build package
+      run: |
+        pip install poetry
+        python -m poetry --version
+        python -m poetry build
+
+    - name: Publish package to Github
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "dist/*"
+        body: "Release package for textbelt-py. Published PyPI URL: https://pypi.org/project/textbelt-py"
+

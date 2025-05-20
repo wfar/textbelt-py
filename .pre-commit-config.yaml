@@ -1,0 +1,7 @@
+repos:
+  - repo: local
+    hooks:
+    - id: run formatters and linters
+      name: run formatters and linters
+      entry: make format-and-lint
+      language: system
