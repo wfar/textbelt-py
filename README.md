@@ -42,13 +42,13 @@ Library supports all the functionalities listed in the [Textbelt documentation](
 The library can be installed in your project using your favorite python package manager.
 
 To install using pip:
-```
+```bash
 pip install textbelt-py
 ```
 
 To install using poetry:
 
-```
+```bash
 poetry add textbelt-py
 ```
 
@@ -56,7 +56,7 @@ poetry add textbelt-py
 Here are a few common ways on how to use the package.
 
 ### Send a message
-```
+```python
 from textbelt_py import SMSRequest, TextbeltClient
 
 
@@ -77,7 +77,7 @@ print("Message sent successfully: " + sms_response.success)
 ```
 
 ### Send a message and handle replies
-```
+```python
 import json
 
 from textbelt_py import SMSRequest, TextbeltClient
@@ -134,7 +134,7 @@ def reply_webhook_handler(data):
 ```
 
 ### Send a one-time password
-```
+```python
 from textbelt_py import OTPGenerateRequest, TextbeltClient
 
 
@@ -155,7 +155,7 @@ print("OTP sent successfully: " + otp_generate_response.success)
 ```
 
 ### Verify one-time password
-```
+```python
 from textbelt_py import OTPVerificationRequest, TextbeltClient
 
 
@@ -176,7 +176,7 @@ print("OTP is valid: " + otp_verification_response.is_valid_otp)
 ```
 
 ### Check message delivery status
-```
+```python
 from textbelt_py import TextbeltClient
 
 
@@ -195,7 +195,7 @@ print("SMS delivery status: " + sms_status_response.status)
 ```
 
 ### Check credit balance
-```
+```python
 from textbelt_py import TextbeltClient
 
 
@@ -213,7 +213,7 @@ print("Remaining credit balance: " + credit_balance_response.quota_remaining)
 ```
 
 ### Error handling
-```
+```python
 from pydantic import ValidationError
 from requests.exceptions import HTTPError
 
@@ -254,17 +254,17 @@ The following are required to build and develop locally:
 
 ### Setup
 First, we need to download the source. Clone the repo by running the following command in your working directory:
-```
+```bash
 git clone git@github.com:wfar/textbelt-py.git
 ```
 
 Once repo is downloaded, we need to build and install packages required for development. Run the following to install all dependencies:
-```
+```bash
 make install
 ```
 
 Then, run the following command to source and activate the virtual environment through poetry:
-```
+```bash
 eval $(poetry env activate)
 ```
 > [!Note]
@@ -276,7 +276,7 @@ You are now all set and can start developing.
 All tests files are located within the package's `tests` directory. It currently contains both unit and integration tests. Tests are executed using	`pytest` framework. Running tests will also provide a test coverage report.
 
 To run all tests in the repo, run the following command:
-```
+```bash
 make test
 ```
 > [!IMPORTANT]
