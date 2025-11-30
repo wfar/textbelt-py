@@ -1,6 +1,6 @@
 [project]
 name = "textbelt-py"
-version = "0.1.4"
+version = "0.1.5"
 description = "A Python client for Textbelt SMS API"
 authors = [
     {name = "Wahhaj Farooq",email = "wahhaj.farooq@pm.me"}
