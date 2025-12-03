@@ -43,14 +43,15 @@ class SMSResponse(BaseModel):
     Attributes:
         success (bool): `True` when message sent successfully,
             `False` otherwise.
-        quota_remaining (int): number of messages remaining on account.
+        quota_remaining (int | None): optional number of messages remaining
+            on account returned when `success` is True.
         text_id (str | None): optional id of the text sent to recipient when
             `success` is `True`.
         error (str | None): optional error message when `success` is `False`.
     """
 
     success: bool
-    quota_remaining: int = Field(alias="quotaRemaining")
+    quota_remaining: int | None = Field(default=None, alias="quotaRemaining")
     text_id: str | None = Field(default=None, alias="textId")
     error: str | None = None
 
